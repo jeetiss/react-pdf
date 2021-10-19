@@ -28,6 +28,23 @@ const drawImage = ctx => node => {
 
   if (node.image.data) {
     if (width !== 0 && height !== 0) {
+      const orientation = node.image.getImageOrientation();
+
+      const trns = [
+        [1, 0, 0, 1, 0, 0],
+        [-1, 0, 0, 1, width, 0],
+        [-1, 0, 0, -1, width, height],
+        [1, 0, 0, -1, 0, height],
+        [0, 1, 1, 0, 0, 0],
+        [0, 1, -1, 0, width, 0],
+        [0, -1, -1, 0, width, height],
+        [0, -1, 1, 0, 0, height],
+      ][orientation - 1];
+
+      if (trns) {
+        ctx.transform(...trns);
+      }
+
       ctx
         .fillOpacity(opacity || 1)
         .image(

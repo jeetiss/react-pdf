@@ -392,6 +392,12 @@ class PNG {
       return fn(ret);
     });
   }
+
+  // fake method for skip exif image orientation transform
+  // eslint-disable-next-line class-methods-use-this
+  getImageOrientation() {
+    return -1;
+  }
 }
 
 export default PNG;
